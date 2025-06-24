@@ -1,42 +1,143 @@
-# 🎓 Educational Platform for Institution
+# 🎓 Educational Institution Backend – Technical Overview
 
-This platform has been developed to facilitate the academic and administrative management of an educational institution. It allows students, teachers, and administrative staff to interact in a digital environment, improving efficiency, communication, and access to information.
-
----
-
-## 🌟 Features
-
-- **Course Management**: Allows administrators to create and manage academic courses, assign teachers, and organize materials.
-- **Student-Teacher Interaction**: Students can submit assignments, interact with teachers through forums, and receive feedback.
-- **Evaluations and Grades**: Functionality to upload and consult grades, as well as generate performance reports.
-- **Academic Calendar**: Visualization of events, exams, and important dates of the academic cycle.
-- **Student Profile**: Students have access to their academic history, assignments, and study materials.
-- **Notifications**: Users will receive important notifications about assignments, calendar changes, and institutional announcements.
+### 🔧 Tech Stack
+- **Language**: Java 17  
+- **Framework**: Spring Boot  
+- **Database**: MongoDB  
+- **Build Tool**: Maven  
+- **IDE Recommended**: IntelliJ IDEA
 
 ---
 
-## ⚙️ Requirements
+## ✅ Project Purpose
 
-- **Language**: Python 3.8+
-- **Framework**: Django 3.2+ (or the framework you use, such as Flask, Laravel, etc.)
-- **Database**: PostgreSQL / MySQL / SQLite
-- **Frontend**: React / Angular / Vue.js (optional)
-- **Dependencies**:
-  - Django
-  - djangorestframework
-  - psycopg2 (if using PostgreSQL)
-  - celery for asynchronous task management
+This backend service is part of a platform designed to manage educational institutions and their branches (headquarters). It provides REST APIs to support academic and administrative operations such as institution registration, branch management, and data access for external systems or frontend applications.
 
 ---
 
-## 🛠 Installation
+## 🛠️ Setup Instructions
 
-Follow these steps to install and run the platform:
+You **must** have the following installed:
+- Java 17
+- Maven
+- MongoDB running locally or in the cloud
 
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/user/educational-platform.git
-cd educational-platform
+git clone https://github.com/YourOrg/educational-platform.git
+cd educational-platform/backend
+```
 
+### 2️⃣ Run the backend server
 
+```bash
+./mvnw spring-boot:run
+```
+
+The application will start at:  
+[http://localhost:8080](http://localhost:8080)
+
+---
+
+## 🔐 Environment Variables
+
+You **must** configure the following environment variables (via `.env`, system, or `application.properties`):
+
+```properties
+MONGODB_URI=mongodb://localhost:27017/edu-platform
+JWT_SECRET=your_jwt_secret_key
+```
+
+---
+
+## 📁 Project Structure
+
+```
+/backend
+├── src/
+│   └── main/
+│       ├── java/com/yourorg/admisys/
+│       │   ├── application/services/
+│       │   │   ├── InstitutionService.java
+│       │   │   └── InstitutionServiceImpl.java
+│       │   ├── domain/models/
+│       │   │   ├── Institution.java
+│       │   │   └── Headquarter.java
+│       │   ├── infrastructure/config/
+│       │   │   └── CorsConfig.java
+│       │   ├── infrastructure/handlers/
+│       │   │   └── InstitutionHandler.java
+│       │   ├── infrastructure/repositories/
+│       │   │   ├── InstitutionRepository.java
+│       │   │   └── HeadquarterRepository.java
+│       │   └── AdmisysApplication.java
+│       └── resources/
+│           └── application.properties
+├── pom.xml
+└── README.md
+```
+
+---
+
+## 📦 API Overview
+
+| Method | Endpoint                    | Description                          |
+|--------|-----------------------------|--------------------------------------|
+| GET    | `/institutions`             | List all institutions                |
+| GET    | `/institutions/{id}`        | Get a specific institution           |
+| POST   | `/institutions`             | Create a new institution             |
+| PUT    | `/institutions/{id}`        | Update an existing institution       |
+| DELETE | `/institutions/{id}`        | Delete an institution                |
+
+> You **should** use Postman or curl to test the endpoints locally.
+
+---
+
+## ✅ Best Practices
+
+- You **should** follow domain-driven design (DDD) structure.
+- You **should** document new endpoints using Swagger or Postman collections.
+- You **should** write unit and integration tests using JUnit and Mockito.
+- You **must** run:
+  ```bash
+  mvn clean install
+  ```
+  before pushing changes.
+
+---
+
+## 🚀 Deployment
+
+You **must** build the project before deployment:
+```bash
+./mvnw clean package
+```
+
+You **need to** configure your MongoDB URI and environment secrets in your hosting environment.
+
+---
+
+## 🧑‍💻 Contributing
+
+1. Fork the repository  
+2. Create a new branch:  
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit  
+4. Push and open a Pull Request  
+5. You **should** add `Fixes #<issue-number>` in the PR if solving a known issue
+
+---
+
+## 📞 Support
+
+- Open an issue in this repository.  
+- Tag **@project-lead** for urgent support.  
+- Join our dev chat on **Discord** or **Telegram** for collaboration.
+
+---
+
+**Thanks for your contribution!**  
+👍 Let’s build reliable educational software together.
