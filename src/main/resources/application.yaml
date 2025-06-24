@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: vg-ms-institution
+  data:
+    mongodb:
+      uri: mongodb+srv://${MONGO_USER:michaellibarra}:${MONGO_PASSWORD:l85YoE5yDyZBXYzG}@${MONGO_HOST:cluster0.qgwrum8.mongodb.net}/${MONGO_DB:vg_ms_institution}?retryWrites=true&w=majority&appName=Cluster0
+      database: vg_ms_institution
+      auto-index-creation: true

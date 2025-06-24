@@ -1,0 +1,63 @@
+db = db.getSiblingDB('vg_ms_institution');
+
+// Crear colección y agregar documentos
+db.institutions.insertMany([
+  {
+    institutionName: "Institución Educativa 20188 - Centro de Mujeres",
+    codeName: "CDM",
+    institutionLogo: "CDM.png",
+    modularCode: "MOD123456",
+    address: "Av. San Francisco 123, Los Olivos",
+    contactEmail: "info@dentrodemujeres.edu.pe",
+    contactPhone: "987123456",
+    status: "A",
+    userId: "18",
+    uiSettings: {
+      color_scheme: "#4A86E8",
+      logo_position: "left",
+      show_student_photos: true,
+      default_view: "calendar",
+      dashboard_components: ["attendance_summary", "upcoming_exams", "recent_grades", "announcements"]
+    },
+    evaluationSystem: {
+      scale: "vigesimal",
+      min_passing_grade: 11,
+      show_decimals: true,
+      round_method: "up",
+      grade_letters: {
+        AD: {min: 17, max: 20, description: "Logro destacado"},
+        A: {min: 14, max: 16.99, description: "Logro esperado"},
+        B: {min: 11, max: 13.99, description: "En proceso"},
+        C: {min: 0, max: 10.99, description: "En inicio"}
+      }
+    },
+    scheduleSettings: {
+      weekday_hours: "7:30am - 3:30pm",
+      saturday_hours: "8:00am - 12:00pm",
+      sunday_hours: "Cerrado",
+      early_entry_allowed: true,
+      late_pickup_limit: "4:00pm",
+      special_schedule_days: [
+        {date: "2023-07-28", description: "Día festivo"},
+        {date: "2023-12-20", description: "Clausura"}
+      ]
+    },
+    createdAt: new Date(),
+    headquarters: [
+      {
+        headquartersName: "Sede Principal",
+        headquartersCode: "CDM-OLIVOS",
+        address: "Av. San Francisco 123, Los Olivos",
+        contactPerson: "Luis Pérez",
+        contactEmail: "sede.olivos@dentrodemujeres.edu.pe",
+        contactPhone: "987123111",
+        status: "A"
+      }
+
+    ]
+  }
+]);
+
+// Crear índices para mejorar el rendimiento
+db.institutions.createIndex({ "institutionName": 1 }, { unique: true });
+db.institutions.createIndex({ "modularCode": 1 }, { unique: true });

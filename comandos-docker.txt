@@ -1,0 +1,45 @@
+docker swarm init --advertise-addr 172.22.172.124
+docker node ls
+docker network create --driver overlay vg-network
+
+docker service create --name vg-ms-institution \
+  --replicas 1 \
+  --publish 8080:8080 \
+  --env MONGO_HOST=mongodb \
+  --env MONGO_PORT=27017 \
+  --env MONGO_DB=vg_ms_institution \
+  --env MONGO_USER=admin \
+  --env MONGO_PASSWORD=institution2025 \
+  --network vg-network \
+  vg-ms-institution:latest
+
+
+  docker service create --name mongodb \
+    --replicas 1 \
+    --publish 27017:27017 \
+    --env MONGO_INITDB_ROOT_USERNAME=admin \
+    --env MONGO_INITDB_ROOT_PASSWORD=institution2025 \
+    --env MONGO_INITDB_DATABASE=vg_ms_institution \
+    --mount type=volume,source=mongodb_data,destination=/data/db \
+    --network vg-network \
+    mongo:8.0
+
+ docker service ls
+ docker service rm mongodb vg-ms-institution
+ docker service scale vg-ms-institution=5
+# Eliminar servicios existentes
+docker service rm vg-app_mongodb  vg-app_vg-ms-institution
+
+# Verificar que se hayan eliminado
+docker service ls
+
+# Desplegar el stack completo
+docker stack deploy -c vg-stack.yml vg-app
+
+# Verificar los servicios del stack
+docker stack services vg-app
+
+ docker stack deploy -c docker-stack.yml vg-app
+
+
+ docker swarm leave --force
